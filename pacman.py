@@ -8,7 +8,7 @@ Programador 3: Humberto Ivan Ulloa Cardona  (A01657143)
 Fecha: 10 de Mayo del 2022
 """
 
-from random import choice
+from random import choice, randint
 from turtle import *
 
 from freegames import floor, vector
@@ -18,6 +18,13 @@ path = Turtle(visible=False)
 writer = Turtle(visible=False)
 aim = vector(5, 0)
 pacman = vector(-40, -80)
+
+# Se agregan las posibles combinaciones de colores para el tablero y se elige  una
+colors = {'#0a0a0a': '#0909e0', '#460578': '#f36cf5', '#0c6b03': '#e09eff'}
+color_index = randint(0, len(colors))
+color_bg = list(colors.keys())[color_index]
+color_path = list(colors.values())[color_index]
+
 ghosts = [
     [vector(-180, 160), vector(5, 0)],
     [vector(-180, -160), vector(0, 5)],
@@ -89,8 +96,8 @@ def valid(point):
 
 def world():
     """Draw world using path."""
-    bgcolor('black')
-    path.color('blue')
+    bgcolor(color_bg)
+    path.color(color_path)
 
     for index in range(len(tiles)):
         tile = tiles[index]
@@ -108,8 +115,10 @@ def world():
 
 def move():
     """Move pacman and all ghosts."""
+    # Se estableció la fuente a Arial del 30 pts en itálica
     writer.undo()
-    writer.write(state['score'])
+    style = ('Arial', 30, 'italic')
+    writer.write(state['score'], font=style, align='center')
 
     clear()
 
