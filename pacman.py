@@ -156,7 +156,8 @@ def move():
 
 
             elif pacman.y < point.y and pacman.x > point.x:
-                options = [vector(10,0),vector(-10,0),vector(0,10),vector(0,-10)]
+                if abs(pacman.y - point.y) > abs(pacman.x - point.x): # Mas 
+                    options = [vector(10,0),vector(-10,0),vector(0,10),vector(0,-10)]
             elif pacman.y < point.y and pacman.x < point.x:
                 options = [vector(10,0),vector(-10,0),vector(0,10),vector(0,-10)]
             else:
