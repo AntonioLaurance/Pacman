@@ -31,18 +31,18 @@ tiles = [
     0, 1, 0, 0, 1, 0, 0, 1, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0,
     0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0,
     0, 1, 0, 0, 1, 0, 1, 0, 0, 0, 1, 0, 1, 0, 0, 1, 0, 0, 0, 0,
-    0, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 0, 0, 0, 0,
-    0, 1, 0, 0, 1, 0, 0, 1, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0,
+    0, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 0, 0, 0, 0,
+    0, 1, 0, 0, 1, 0, 0, 1, 1, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0,
     0, 1, 0, 0, 1, 0, 1, 1, 1, 1, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0,
-    0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0,
-    0, 0, 0, 0, 1, 0, 1, 1, 1, 1, 1, 0, 1, 0, 0, 1, 0, 0, 0, 0,
-    0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 1, 0, 1, 0, 0, 1, 0, 0, 0, 0,
-    0, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0,
-    0, 1, 0, 0, 1, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0,
+    0, 1, 1, 1, 1, 1, 1, 0, 1, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0,
+    0, 0, 1, 0, 1, 0, 1, 1, 1, 1, 1, 0, 1, 0, 0, 1, 0, 0, 0, 0,
+    0, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 0, 1, 0, 0, 0, 0,
+    0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0,
+    0, 1, 0, 0, 1, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0,
     0, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 0, 0, 0,
-    0, 0, 1, 0, 1, 0, 1, 0, 0, 0, 1, 0, 1, 0, 1, 0, 0, 0, 0, 0,
-    0, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 0, 0, 0, 0,
-    0, 1, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0,
+    0, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 0, 0, 0, 0,
+    0, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 0, 0, 0, 0,
+    0, 1, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0,
     0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0,
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -128,24 +128,54 @@ def move():
     up()
     goto(pacman.x + 10, pacman.y + 10)
     dot(20, 'yellow')
-
+    
     for point, course in ghosts:
-        if valid(point + course):
-            point.move(course)
-        else:
-            options = [
-                vector(5, 0),
-                vector(-5, 0),
-                vector(0, 5),
-                vector(0, -5),
-            ]
-            plan = choice(options)
+        # Saber donde esta pacman con respecto del fantasma
+            """Aqui se busca la posicion del pacmam y se compara con la del fantasma para que este prefiera la moverse a donde esta el pacman cuando lo puede ver"""
+        
+            if pacman.x < point.x and pacman.y == point.y: # Si el pacman esta exactamente a la izquierda
+                options = [vector(-10,0), vector(0,-10), vector(10,0), vector(0,10)]
+            elif pacman.x > point.x and pacman.y == point.y: # Si el pacman esta exactamente a la derecha
+                options = [vector(10, 0), vector(0,-10), vector(-10,0), vector(0,10)]
+            elif pacman.y < point.y and pacman.x == point.x: # Si el pacman esta exactamente abajo
+                options = [vector(0,-10), vector(-10,0), vector(10,0), vector(0,10)]
+            elif pacman.y > point.y and pacman.x == point.x: # Si el pacman esta exactamente arriba
+                options = [vector(0,10), vector(10, 0), vector(0,-10), vector(-10,0)]
+
+            elif pacman.y < point.y and pacman.x < point.x: # Si el pacman esta abajo a la izquierda
+                if abs(pacman.y - point.y) > abs(pacman.x - point.x): # Mas abajo que a la izquierda
+                    options = [vector(0,-10), vector(-10,0), vector(10,0), vector(0,10)]    
+                else:
+                    options = [vector(-10,0), vector(0,-10), vector(10,0), vector(0,10)]
+                    
+            elif pacman.y > point.y and pacman.x < point.x: # Si el pacman esta arriba a la izquierda
+                if abs(pacman.y - point.y) > abs(pacman.x - point.x): # Mas arriba que hacia la izquierda
+                    options = [vector(10,0), vector(-10,0), vector(0,10), vector(0,-10)]
+                else:
+                    options = [vector(0, 10), vector(-10, 0), vector(10,0), vector(0,-10)]
+
+
+            elif pacman.y < point.y and pacman.x > point.x:
+                options = [vector(10,0),vector(-10,0),vector(0,10),vector(0,-10)]
+            elif pacman.y < point.y and pacman.x < point.x:
+                options = [vector(10,0),vector(-10,0),vector(0,10),vector(0,-10)]
+            else:
+                options = [vector(10,0),vector(-10,0),vector(0,10),vector(0,-10)]
+        
+            possible_options = valid_options(point)
+
+            for movimiento in options:
+                if movimiento in possible_options:
+                    plan = movimiento
+                    break
+
             course.x = plan.x
             course.y = plan.y
+            point.move(course)
 
-        up()
-        goto(point.x + 10, point.y + 10)
-        dot(20, 'red')
+            up()
+            goto(point.x + 10, point.y + 10)
+            dot(20, 'red')
 
     update()
 
@@ -161,6 +191,18 @@ def change(x, y):
     if valid(pacman + vector(x, y)):
         aim.x = x
         aim.y = y
+
+def valid_options(point):
+    "Return the valid directions for ghosts given the position"
+    options = [vector(10,0), vector(-10,0), vector(0,10), vector(0,-10)]
+    optionsv = []
+
+    for i in options:
+        if valid(point + i):
+            optionsv.append(i)
+        
+    return optionsv
+
 
 
 setup(420, 420, 370, 0)
