@@ -162,7 +162,9 @@ def move():
         if abs(pacman - point) < 20:
             return
 
-    ontimer(move, 100)
+    # Se disminuyó el timepo entre cada frame para aumentar la velocidad 
+    # de los fantasmas.
+    ontimer(move, 25)
 
 
 def change(x, y):
@@ -186,3 +188,6 @@ onkey(lambda: change(0, -5), 'Down')
 world()
 move()
 done()
+
+
+
