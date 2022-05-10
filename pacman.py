@@ -164,11 +164,20 @@ def move():
                     options = [vector(0, 10), vector(-10, 0), vector(10,0), vector(0,-10)]
 
 
-            elif pacman.y < point.y and pacman.x > point.x:
-                if abs(pacman.y - point.y) > abs(pacman.x - point.x): # Mas 
-                    options = [vector(10,0),vector(-10,0),vector(0,10),vector(0,-10)]
-            elif pacman.y < point.y and pacman.x < point.x:
-                options = [vector(10,0),vector(-10,0),vector(0,10),vector(0,-10)]
+            elif pacman.y < point.y and pacman.x > point.x: # Si el pacman esta abajo a la derecha
+                if abs(pacman.y - point.y) > abs(pacman.x - point.x): # Mas hacia abajo que hacia la derecha
+                    options = [vector(0, -10),vector(10, 0), vector(-10,0), vector(0, 10)]
+                else:
+                    options = [vector(10, 0), vector(0, -10), vector(-10,0), vector(0, 10)]
+
+
+            elif pacman.y > point.y and pacman.x > point.x:  # Si el pacman esta hacia arriba a la derecha
+                if abs(pacman.y - point.y) > abs(pacman.x - point.x): # Mas arriba que hacia la derecha
+                    options = [vector(0, 10), vector(10,0), vector(-10, 0),vector(0,-10)]
+                else:
+                    options = [vector(10,0), vector(0, 10), vector(0,-10), vector(-10, 0)]
+
+
             else:
                 options = [vector(10,0),vector(-10,0),vector(0,10),vector(0,-10)]
         
