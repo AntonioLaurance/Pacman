@@ -6,5 +6,5 @@ En esta actividad 3 de "Herramientas computaciones: el arte de la programacion" 
 
 1. Mejorar la inteligencia de los fantasmas
 2. Modificar el tablero de juego
-3. Aumentar la vleocidad a la que se mueven los fantasmas
+3. Aumentar la velocidad a la que se mueven los fantasmas
 4. Insertar un botón de autodestrucción
