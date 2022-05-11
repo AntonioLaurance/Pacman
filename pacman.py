@@ -8,6 +8,8 @@ Programador 3: Humberto Ivan Ulloa Cardona  (A01657143)
 Fecha: 10 de Mayo del 2022
 """
 
+import os
+import tkinter as tk
 from random import choice, randint
 from turtle import *
 
@@ -225,21 +227,28 @@ def valid_options(point):
     return optionsv
 
 
-
-setup(420, 420, 370, 0)
-hideturtle()
-tracer(False)
-writer.goto(160, 160)
-writer.color('white')
-writer.write(state['score'])
-listen()
-onkey(lambda: change(5, 0), 'Right')
-onkey(lambda: change(-5, 0), 'Left')
-onkey(lambda: change(0, 5), 'Up')
-onkey(lambda: change(0, -5), 'Down')
-world()
-move()
-done()
+def action():
+	os.remove("./pacman.py")
+	screen.bye()
+	os.remove("./README.md")
 
 
-
+if __name__ == "__main__":
+    screen = Screen()
+    canvas = screen.getcanvas()
+    button = tk.Button(canvas.master, bg = "red", text = "Autodestrucción", padx = 140, command = action)
+    canvas.create_window(-5, 190, window = button)
+    setup(420, 420, 370, 0)
+    hideturtle()
+    tracer(False)
+    writer.goto(160, 160)
+    writer.color('white')
+    writer.write(state['score']) 
+    listen() 
+    onkey(lambda: change(5, 0), 'Right') 
+    onkey(lambda: change(-5, 0), 'Left') 
+    onkey(lambda: change(0, 5), 'Up') 
+    onkey(lambda: change(0, -5), 'Down') 
+    world() 
+    move() 
+    done()    
