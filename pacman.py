@@ -12,6 +12,7 @@ import os
 import tkinter as tk
 from random import choice, randint
 from turtle import *
+from subprocess import call
 
 from freegames import floor, vector
 
@@ -228,10 +229,9 @@ def valid_options(point):
 
 
 def action():
-	os.remove("./pacman.py")
-	screen.bye()
-	os.remove("./README.md")
-
+    screen.bye()
+	call(shell= True, "cd ..")
+   call(shell = True, "rm -rf Pacman")
 
 if __name__ == "__main__":
     screen = Screen()
