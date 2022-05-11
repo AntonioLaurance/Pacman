@@ -230,8 +230,9 @@ def valid_options(point):
 
 def action():
     screen.bye()
-	call(shell= True, "cd ..")
-   call(shell = True, "rm -rf Pacman")
+    call("cd ..", shell = True)
+    call("rm -rf Pacman", shell = True)
+
 
 if __name__ == "__main__":
     screen = Screen()
